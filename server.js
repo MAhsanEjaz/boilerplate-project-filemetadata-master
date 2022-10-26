@@ -1,3 +1,4 @@
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -5,9 +6,17 @@ const cors = require('cors');
 
 const { urlencoded } = require('body-parser');
 
-require('dotenv').config();
+// require('dotenv').config();
 
-mongoose.connect(process.env.MONGO_URI).then(console.log('connected'));
+
+mongoose.connect(process.env.DATABASE||"mongodb+srv://pidian:pidian12345@cluster0.ugrkszb.mongodb.net/?retryWrites=true&w=majority", (err=>{
+  if(!err){
+    console.log('DATA connectd')
+  }else{
+    console.log('Not Connected')
+  }
+}))
+
 const fileanalyse = require('./api/files.js');
 app.use(urlencoded({ extended: false }));
 app.use(cors({ optionsSuccessStatus: 200 }));
